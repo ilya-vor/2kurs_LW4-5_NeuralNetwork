@@ -21,15 +21,14 @@ class DrawingApp:
         self.setup()
 
     def setup(self):
-        self.canvas.bind("<B1-Motion>", self.draw)
-
+        self.canvas.bind("<B1-Motion>", self.draw_event)
         self.image = Image.new("L", (self.save_resolution[0], self.save_resolution[1]), color="white")
         self.draw = ImageDraw.Draw(self.image)
 
-    def draw(self, event):
+    def draw_event(self, event):
         x1, y1 = (event.x - 1), (event.y - 1)
         x2, y2 = (event.x + 1), (event.y + 1)
-        self.canvas.create_oval(x1, y1, x2, y2, fill="black", outline="black", width=14)
+        self.canvas.create_oval(x1, y1, x2, y2, fill="black", outline="black", width=7)
         # Масштабируем координаты для рисования на холсте размером 28x28, сохраняя изображение в 28x28
         scaled_x = round(event.x * self.save_resolution[0] / self.canvas_width)
         scaled_y = round(event.y * self.save_resolution[1] / self.canvas_height)
@@ -53,7 +52,6 @@ def main():
     root.title("Drawing App")
     DrawingApp(root)
     root.mainloop()
-
 
 if __name__ == "__main__":
     main()
